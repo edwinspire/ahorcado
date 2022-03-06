@@ -2,6 +2,9 @@
 #include <sstream>
 #include <stdlib.h>
 #include <string>
+#include <iterator>
+#include <fstream>
+#include <vector>
 
 using namespace std;
 
@@ -17,6 +20,90 @@ void creartitulo(string texto);
 void reglibros();
 void regtrabajadores();
 void menuprincipal();
+string *LeerArchivo();
+
+void Instrucciones()
+{
+	cout << "INSTRUCCIONES" << endl;
+}
+
+void EditarPalabras()
+{
+	cout << "EDITAR PALABRAS" << endl;
+}
+
+void IniciarJuego(string palabra)
+{
+	cout << "Iniciar: " << palabra << endl;
+
+	for (std::string::size_type i = 0; i < palabra.size(); ++i)
+	{
+		cout << "Iniciar: " << palabra[i] << endl;
+	}
+}
+
+void Jugar()
+{
+	cout << "JUGAR" << endl;
+	string *pal = LeerArchivo();
+	vector<string> ListaPalabras;
+	string PalabraJugar = "";
+
+	// Llenar el vector con las palabras
+	for (int i = 0; i < 100; i++)
+	{
+		string l = pal[i];
+
+		if (l.size() > 0)
+		{
+			ListaPalabras.push_back(l);
+		}
+	}
+
+	if (ListaPalabras.size() > 0)
+	{
+		// cout << "Cantidad de palabras: " << ListaPalabras.size() << endl;
+
+		// Elegir parabra aleatoriamente
+		int random = 1 + (rand() % ListaPalabras.size() - 1);
+		cout << "Random: " << random << endl;
+		cout << "Palabra: " << ListaPalabras[random] << endl;
+		IniciarJuego(ListaPalabras[random]);
+	}
+	else
+	{
+		cout << "No hay palabras guardadas. Necesita guardarlas para iniciar el juego." << endl;
+		presionarteclacontinuar;
+		EditarPalabras();
+	}
+
+	presionarteclacontinuar;
+}
+
+void Presentacion()
+{
+	cout << "Presentacion" << endl;
+}
+
+// Lee un archivo de texto y lo guarda en una matriz
+string *LeerArchivo()
+{
+	cout << "Leer archivo palabras.txt" << endl;
+	ifstream archivo("palabras.txt");
+	string linea;
+	string *matriz = new string[100];
+	while (getline(archivo, linea))
+	{
+		cout << "**** " + linea + " *****" << endl;
+		// std::istringstream iss(linea);
+	}
+
+	matriz[0] = "MURCIELAGO";
+	matriz[1] = "AEROPUERTO";
+
+	presionarteclacontinuar;
+	return matriz;
+}
 
 string rellenartexto(string texto_inicial, int longitud_final)
 {
@@ -182,21 +269,19 @@ void menuprincipal()
 {
 	borrarpantalla();
 	cout << "**********************************" << endl;
-	cout << "**** Tarea 3_2: Estructura 2 ****" << endl;
+	cout << "********** EL AHORCADO ***********" << endl;
 	cout << "*********************************" << endl;
-	cout << "Seleccione una opci�n:" << endl;
-	cout << " [1] Registrar libros" << endl;
-	cout << " [2] Registrar trabajadores" << endl;
+	cout << "Seleccione una opcion:" << endl;
+	cout << " [1] Instrucciones" << endl;
+	cout << " [2] Editar palabras" << endl;
+	cout << " [3] Jugar" << endl;
+	cout << " [4] Presentacion" << endl;
 	cout << " [0] Salir" << endl;
 }
 
 int main()
 {
 	int op;
-	// Hacer un men� que realice lo siguiente:
-	// Hacer una estructura para registrar los datos de tres libros como: t�tulo, autor, a�o y color del libro.
-	// Hacer una estructura para el registro de trabajadores, los datos a ingresar queda a su decisi�n.
-	// Ejecutar el programa hasta que el usuario desee salir
 	op = 100;
 	while (op != 0)
 	{
@@ -209,10 +294,17 @@ int main()
 			return 0;
 			break;
 		case 1:
-			reglibros();
+			Instrucciones();
 			break;
 		case 2:
-			regtrabajadores();
+			EditarPalabras();
+			break;
+		case 3:
+			Jugar();
+			presionarteclacontinuar();
+			break;
+		case 4:
+			Presentacion();
 			break;
 		default:
 			cout << "La opcion seleccionada no es valida." << endl;
