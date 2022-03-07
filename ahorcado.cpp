@@ -34,11 +34,66 @@ void EditarPalabras()
 
 void IniciarJuego(string palabra)
 {
-	cout << "Iniciar: " << palabra << endl;
+
+	string palabra_jugar = "";
+	int LetrasEscondidas = 0;
 
 	for (std::string::size_type i = 0; i < palabra.size(); ++i)
 	{
-		cout << "Iniciar: " << palabra[i] << endl;
+		int random = 1 + (rand() % 100);
+
+		if (random % 2)
+		{
+			palabra_jugar.push_back(palabra[i]);
+		}
+		else
+		{
+			palabra_jugar.push_back('_');
+			LetrasEscondidas++;
+		}
+	}
+	//	cout << "Palabra 1: " << palabra << " Palabra 2: " << palabra_jugar << endl;
+
+	char caracter = ' ';
+	bool FinJuego = false;
+	int Intentos = LetrasEscondidas;
+
+	cout << "Palabra: " << palabra_jugar << " Intentos " << Intentos << endl;
+
+	while (FinJuego == false)
+	{
+		cout << "Ingrese una letra: ";
+		cin >> caracter;
+		cout << endl;
+		bool letra_encontrada = false;
+		for (std::string::size_type i = 0; i < palabra.size(); ++i)
+		{
+			if (palabra[i] == caracter)
+			{
+				palabra_jugar[i] = caracter;
+				letra_encontrada = true;
+			}
+		}
+
+		if (letra_encontrada == false)
+		{
+			Intentos--;
+		}
+
+		if (palabra_jugar == palabra || Intentos <= 0)
+		{
+			FinJuego = true;
+		}
+		cout << "Palabra: " << palabra_jugar << " Intentos " << Intentos << endl;
+	}
+
+	if (palabra_jugar == palabra)
+	{
+		cout << "GANADOR!!!!!!" << endl;
+	}
+	else
+	{
+		cout << "Perdedor !!!!!!" << endl;
 	}
 }
 
@@ -62,12 +117,10 @@ void Jugar()
 
 	if (ListaPalabras.size() > 0)
 	{
-		// cout << "Cantidad de palabras: " << ListaPalabras.size() << endl;
-
 		// Elegir parabra aleatoriamente
 		int random = 1 + (rand() % ListaPalabras.size() - 1);
-		cout << "Random: " << random << endl;
-		cout << "Palabra: " << ListaPalabras[random] << endl;
+		//	cout << "Random: " << random << endl;
+		//		cout << "Palabra: " << ListaPalabras[random] << endl;
 		IniciarJuego(ListaPalabras[random]);
 	}
 	else
@@ -89,17 +142,17 @@ void Presentacion()
 string *LeerArchivo()
 {
 	cout << "Leer archivo palabras.txt" << endl;
+	int numlinea = 0;
 	ifstream archivo("palabras.txt");
 	string linea;
 	string *matriz = new string[100];
 	while (getline(archivo, linea))
 	{
-		cout << "**** " + linea + " *****" << endl;
-		// std::istringstream iss(linea);
+		// cout << "**** " + linea + " *****" << endl;
+		//  std::istringstream iss(linea);
+		matriz[numlinea] = linea;
+		numlinea++;
 	}
-
-	matriz[0] = "MURCIELAGO";
-	matriz[1] = "AEROPUERTO";
 
 	presionarteclacontinuar;
 	return matriz;
