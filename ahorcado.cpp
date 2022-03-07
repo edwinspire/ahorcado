@@ -99,14 +99,12 @@ void IniciarJuego(string palabra)
 
 void MostrarAhorcado(string palabra_jugar, int TotalIntentos, int IntentosRestantes)
 {
+	string Titulo = "AHORCADO";
 	borrarpantalla();
-	CrearTitulo("Ahorcado");
+	CrearTitulo(Titulo);
 	cout << "	" << palabra_jugar << endl
 		 << endl
 		 << "Intentos " << IntentosRestantes << endl
-		 << endl;
-
-	cout << "	" << palabra_jugar << endl
 		 << endl;
 
 	cout << "   [-][-][-][-][-][-][-][-][-]" << endl;
