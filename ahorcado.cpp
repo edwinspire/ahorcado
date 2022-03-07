@@ -10,7 +10,6 @@ using namespace std;
 
 string convertiratexto(float f);
 
-string rellenartexto(string texto_inicial, int longitud_final);
 void presionarteclacontinuar();
 void borrarpantalla();
 void dibujarasteriscos(float longitud_texto);
@@ -21,12 +20,14 @@ string *LeerArchivo();
 
 void Instrucciones()
 {
-	cout << "INSTRUCCIONES" << endl;
+	cout << "INSTRUCCIONES - Por implementar texto informativo" << endl;
+	presionarteclacontinuar();
 }
 
 void EditarPalabras()
 {
-	cout << "EDITAR PALABRAS" << endl;
+	cout << "EDITAR PALABRAS - Por implementar recibir información del usuario y almacenarlo en el archivo local" << endl;
+	presionarteclacontinuar();
 }
 
 void IniciarJuego(string palabra)
@@ -176,7 +177,8 @@ void Jugar()
 
 void Presentacion()
 {
-	cout << "Presentacion" << endl;
+	cout << "Presentacion - Por implementar pantalla animada o en colores de bienvenida al juego" << endl;
+	presionarteclacontinuar;
 }
 
 // Lee un archivo de texto y lo guarda en una matriz
@@ -197,16 +199,7 @@ string *LeerArchivo()
 	return matriz;
 }
 
-string rellenartexto(string texto_inicial, int longitud_final)
-{
-	string salida = texto_inicial;
-	while (salida.size() < longitud_final)
-	{
-		salida = salida + " ";
-	}
-	salida = (salida.substr(0, longitud_final)) + " ";
-	return salida;
-}
+
 
 void presionarteclacontinuar()
 {
