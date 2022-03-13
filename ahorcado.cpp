@@ -5,8 +5,14 @@
 #include <iterator>
 #include <fstream>
 #include <vector>
+#include <stdio.h>
+#include <conio.h>
+#include <windows.h>
 
 using namespace std;
+
+void gotoxy(short x, short y); // here we declare the gotoxy function//
+HANDLE Consola = GetStdHandle(STD_OUTPUT_HANDLE);
 
 string convertiratexto(float f);
 
@@ -14,9 +20,16 @@ void presionarteclacontinuar();
 void borrarpantalla();
 void dibujarasteriscos(float longitud_texto);
 void CrearTitulo(string texto);
-void MostrarAhorcado(string palabra_jugar, int TotalIntentos,  int IntentosRestantes);
+void MostrarAhorca(string palabra_jugar, int TotalIntentos, int IntentosRestantes);
 void menuprincipal();
 string *LeerArchivo();
+void MoverHumano(int TotalIntentos, int IntentosRestantes);
+
+void gotoxy(short x, short y) // definition of gotoxy function//
+{
+	COORD pos = {x, y};
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
+}
 
 void Instrucciones()
 {
@@ -56,7 +69,7 @@ void IniciarJuego(string palabra)
 	bool FinJuego = false;
 	int Intentos = LetrasEscondidas;
 
-	MostrarAhorcado(palabra_jugar, LetrasEscondidas, Intentos);
+	MostrarAhorca(palabra_jugar, LetrasEscondidas, Intentos);
 
 	while (FinJuego == false)
 	{
@@ -84,7 +97,7 @@ void IniciarJuego(string palabra)
 			FinJuego = true;
 		}
 
-		MostrarAhorcado(palabra_jugar, LetrasEscondidas, Intentos);
+		MostrarAhorca(palabra_jugar, LetrasEscondidas, Intentos);
 	}
 
 	if (palabra_jugar == palabra)
@@ -97,7 +110,7 @@ void IniciarJuego(string palabra)
 	}
 }
 
-void MostrarAhorcado(string palabra_jugar, int TotalIntentos, int IntentosRestantes)
+void MostrarAhorca(string palabra_jugar, int TotalIntentos, int IntentosRestantes)
 {
 	string Titulo = "AHORCADO";
 	borrarpantalla();
@@ -122,21 +135,43 @@ void MostrarAhorcado(string palabra_jugar, int TotalIntentos, int IntentosRestan
 	cout << "   [-]" << endl;
 	cout << "   [-]" << endl;
 	cout << "   [-]" << endl;
+	cout << "   [-]" << endl;
+	cout << "   [-]" << endl;
+	cout << "   [-]" << endl;
+	cout << "[-][-][-]" << endl;
 
-	if (TotalIntentos == IntentosRestantes)
-	{
-		cout << "   [-]                      O" << endl;
-		cout << "   [-]                    _/|\\_" << endl;
-		cout << "   [-]                      |" << endl;
-		cout << "[-][-][-]                 _/ \\_" << endl;
-	}
-	else
-	{
-		cout << "   [-]              x        O" << endl;
-		cout << "   [-]              x      _/|\\_" << endl;
-		cout << "   [-]              x        |" << endl;
-		cout << "[-][-][-]           x      _/ \\_" << endl;
-	}
+	MoverHumano(TotalIntentos, IntentosRestantes);
+	/*
+		if (TotalIntentos == IntentosRestantes)
+		{
+			cout << "   [-]                      O" << endl;
+			cout << "   [-]                    _/|\\_" << endl;
+			cout << "   [-]                      |" << endl;
+			cout << "[-][-][-]                 _/ \\_" << endl;
+		}
+		else
+		{
+			cout << "   [-]              x        O" << endl;
+			cout << "   [-]              x      _/|\\_" << endl;
+			cout << "   [-]              x        |" << endl;
+			cout << "[-][-][-]           x      _/ \\_" << endl;
+		}
+		*/
+}
+
+void MoverHumano(int TotalIntentos, int IntentosRestantes)
+{
+	int x = 26;
+	int y = 8+IntentosRestantes;
+	gotoxy(x, y + 1);
+	cout << "  O" << endl;
+	gotoxy(x, y + 2);
+	cout << "_/|\\_" << endl;
+	gotoxy(x, y + 3);
+	cout << "  |" << endl;
+	gotoxy(x, y + 4);
+	cout << "_/ \\_" << endl;
+	gotoxy(0, y + 6);
 }
 
 void Jugar()
@@ -196,8 +231,6 @@ string *LeerArchivo()
 	presionarteclacontinuar;
 	return matriz;
 }
-
-
 
 void presionarteclacontinuar()
 {
