@@ -39,9 +39,35 @@ void Instrucciones()
 
 void EditarPalabras()
 {
+	string Palabra = "";
 	cout << "EDITAR PALABRAS - Por implementar recibir información del usuario y almacenarlo en el archivo local" << endl;
+	cout << "ingrese las palabras y presione enter, cuando termine presione 0 para guardar y salir:" << endl;
+
+	ofstream archivo("palabras.txt");
+	if (archivo.is_open())
+	{
+		while (true)
+		{
+			cin >> Palabra;
+
+			if (Palabra == "0")
+			{
+				break;
+			}
+
+			archivo << Palabra << endl;
+		}
+		archivo.close();
+	}
+	else
+	{
+		cout << "No se pudo abrir el archivo" << endl;
+	};
+
 	presionarteclacontinuar();
 }
+
+
 
 void IniciarJuego(string palabra)
 {
@@ -141,28 +167,12 @@ void MostrarAhorca(string palabra_jugar, int TotalIntentos, int IntentosRestante
 	cout << "[-][-][-]" << endl;
 
 	MoverHumano(TotalIntentos, IntentosRestantes);
-	/*
-		if (TotalIntentos == IntentosRestantes)
-		{
-			cout << "   [-]                      O" << endl;
-			cout << "   [-]                    _/|\\_" << endl;
-			cout << "   [-]                      |" << endl;
-			cout << "[-][-][-]                 _/ \\_" << endl;
-		}
-		else
-		{
-			cout << "   [-]              x        O" << endl;
-			cout << "   [-]              x      _/|\\_" << endl;
-			cout << "   [-]              x        |" << endl;
-			cout << "[-][-][-]           x      _/ \\_" << endl;
-		}
-		*/
 }
 
 void MoverHumano(int TotalIntentos, int IntentosRestantes)
 {
 	int x = 26;
-	int y = 8+IntentosRestantes;
+	int y = 8 + IntentosRestantes;
 	gotoxy(x, y + 1);
 	cout << "  O" << endl;
 	gotoxy(x, y + 2);
