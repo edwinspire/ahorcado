@@ -171,7 +171,7 @@ void MoverHumano(int TotalIntentos, int IntentosRestantes)
 	cout << "  |" << endl;
 	gotoxy(x, y + 4);
 	cout << "_/ \\_" << endl;
-	gotoxy(0, y + 6);
+	gotoxy(0, 26);
 }
 
 void Jugar()
