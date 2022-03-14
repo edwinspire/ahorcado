@@ -34,6 +34,7 @@ void gotoxy(short x, short y) // definition of gotoxy function//
 void Instrucciones()
 {
 	CrearTitulo("JUEGO EL AHORCADO", "INSTRUCCIONES");
+	SetConsoleTextAttribute(Consola, 7);
 	cout << "INSTRUCCIONES - Por implementar texto informativo" << endl;
 	presionarteclacontinuar();
 }
@@ -314,13 +315,14 @@ void DibujarMarcoSubtitulo(float longitud_texto)
 
 void CrearTitulo(string texto, string subtitulo)
 {
+	SetConsoleTextAttribute(Consola, 1);
 	cout << "              " << endl;
 	DibujarMarcoSuperior(texto.size(), true);
 	cout << " " << char(186) << "           " + texto + "           " << char(186) << endl;
 	DibujarMarcoSuperior(texto.size(), false);
 
 	cout << " " << char(179);
-
+	SetConsoleTextAttribute(Consola, 9);
 	// Igualamos la cantidad de caracteres del subtitulo a la cantidad de caracteres del titulo, para que se ajuste el marco del titulo con el subtitulo
 	if ((texto.size() + 21) > subtitulo.size())
 	{
@@ -350,6 +352,7 @@ void menuprincipal()
 	// cout << "**********************************" << endl;
 	// cout << "********** EL AHORCADO ***********" << endl;
 	// cout << "*********************************" << endl;
+	SetConsoleTextAttribute(Consola, 7);
 	cout << "  Seleccione una opcion:" << endl;
 	cout << "   [1] Instrucciones" << endl;
 	cout << "   [2] Editar palabras" << endl;
