@@ -8,6 +8,8 @@
 #include <stdio.h>
 #include <conio.h>
 #include <windows.h>
+//#include <wchar.h>
+//#include <locale.h> // Sirve para poder mostrar tildes en la consola
 
 using namespace std;
 
@@ -33,17 +35,24 @@ void gotoxy(short x, short y) // definition of gotoxy function//
 
 void Instrucciones()
 {
-	CrearTitulo("JUEGO EL AHORCADO", "INSTRUCCIONES");
+	borrarpantalla();
+	CrearTitulo("JUEGO EL AHORCADO", "Instrucciones");
 	SetConsoleTextAttribute(Consola, 7);
-	cout << "INSTRUCCIONES - Por implementar texto informativo" << endl;
+	string Texto = "Antes de iniciar el juego debera ingresar las palabras para el juego en la opcion 2 del menu principal.\nUna vez tenga guardadas las palabras, en el menu principal debe seleccionar la opcion 3.\nAhora iniciado el juego se le mostrara una palabra seleccionada aleatoriamente con letras en estaran ocultas reemplazadas por el caracter _\nLa cantidad de letras ocultas es la cantidad maxima de intentos que tiene antes de perder la jugada.";
+	cout << Texto << endl
+		 << endl;
 	presionarteclacontinuar();
 }
 
-void EditarPalabras()
+void SetearPalabras()
 {
+	borrarpantalla();
+	CrearTitulo("JUEGO EL AHORCADO", "Registro de palabras para jugar");
+	SetConsoleTextAttribute(Consola, 7);
+
 	string Palabra = "";
-	cout << "EDITAR PALABRAS - Por implementar recibir información del usuario y almacenarlo en el archivo local" << endl;
-	cout << "ingrese las palabras y presione enter, cuando termine presione 0 para guardar y salir:" << endl;
+	cout << endl
+		 << "Ingrese las palabras para el juego (no incluya tildes) y presione enter.\nCuando termine presione 0 para guardar y salir:" << endl;
 
 	ofstream archivo("palabras.txt");
 	if (archivo.is_open())
@@ -57,7 +66,10 @@ void EditarPalabras()
 				break;
 			}
 
-			archivo << Palabra << endl;
+			if (Palabra.size() > 0)
+			{
+				archivo << Palabra << endl;
+			}
 		}
 		archivo.close();
 	}
@@ -213,7 +225,7 @@ void Jugar()
 	{
 		cout << "No hay palabras guardadas. Necesita guardarlas para iniciar el juego." << endl;
 		presionarteclacontinuar;
-		EditarPalabras();
+		SetearPalabras();
 	}
 
 	presionarteclacontinuar;
@@ -320,9 +332,9 @@ void CrearTitulo(string texto, string subtitulo)
 	DibujarMarcoSuperior(texto.size(), true);
 	cout << " " << char(186) << "           " + texto + "           " << char(186) << endl;
 	DibujarMarcoSuperior(texto.size(), false);
-
-	cout << " " << char(179);
 	SetConsoleTextAttribute(Consola, 9);
+	cout << " " << char(179);
+
 	// Igualamos la cantidad de caracteres del subtitulo a la cantidad de caracteres del titulo, para que se ajuste el marco del titulo con el subtitulo
 	if ((texto.size() + 21) > subtitulo.size())
 	{
@@ -349,13 +361,11 @@ void menuprincipal()
 {
 	borrarpantalla();
 	CrearTitulo("JUEGO EL AHORCADO", "Menu Principal");
-	// cout << "**********************************" << endl;
-	// cout << "********** EL AHORCADO ***********" << endl;
-	// cout << "*********************************" << endl;
 	SetConsoleTextAttribute(Consola, 7);
+
 	cout << "  Seleccione una opcion:" << endl;
 	cout << "   [1] Instrucciones" << endl;
-	cout << "   [2] Editar palabras" << endl;
+	cout << "   [2] setear palabras" << endl;
 	cout << "   [3] Jugar" << endl;
 	cout << "   [4] Presentacion" << endl;
 	cout << "   [0] Salir" << endl;
@@ -363,6 +373,8 @@ void menuprincipal()
 
 int main()
 {
+	// setlocale(LC_ALL, "spanish");
+
 	int op;
 	op = 100;
 	while (op != 0)
@@ -379,7 +391,7 @@ int main()
 			Instrucciones();
 			break;
 		case 2:
-			EditarPalabras();
+			SetearPalabras();
 			break;
 		case 3:
 			Jugar();
