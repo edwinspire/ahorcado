@@ -18,8 +18,8 @@ string convertiratexto(float f);
 
 void presionarteclacontinuar();
 void borrarpantalla();
-void dibujarasteriscos(float longitud_texto);
-void CrearTitulo(string texto);
+void DibujarMarcoSuperior(float longitud_texto);
+void CrearTitulo(string titulo, string subtitulo);
 void MostrarAhorca(string palabra_jugar, int TotalIntentos, int IntentosRestantes);
 void menuprincipal();
 string *LeerArchivo();
@@ -33,6 +33,7 @@ void gotoxy(short x, short y) // definition of gotoxy function//
 
 void Instrucciones()
 {
+	CrearTitulo("JUEGO EL AHORCADO", "INSTRUCCIONES");
 	cout << "INSTRUCCIONES - Por implementar texto informativo" << endl;
 	presionarteclacontinuar();
 }
@@ -66,8 +67,6 @@ void EditarPalabras()
 
 	presionarteclacontinuar();
 }
-
-
 
 void IniciarJuego(string palabra)
 {
@@ -138,9 +137,10 @@ void IniciarJuego(string palabra)
 
 void MostrarAhorca(string palabra_jugar, int TotalIntentos, int IntentosRestantes)
 {
-	string Titulo = "AHORCADO";
+	string Titulo = "JUEGO EL AHORCADO";
+	// string SubTitulo = "";
 	borrarpantalla();
-	CrearTitulo(Titulo);
+	CrearTitulo(Titulo, palabra_jugar);
 	cout << "	" << palabra_jugar << endl
 		 << endl
 		 << "Intentos " << IntentosRestantes << endl
@@ -253,40 +253,87 @@ void borrarpantalla()
 	system("CLS");
 }
 
-void dibujarasteriscos(float longitud_texto)
+void DibujarMarcoSuperior(float longitud_texto, bool superior)
 {
 	string linea;
 	int posicion;
-	linea = "";
-	longitud_texto = longitud_texto + 10;
+	linea = " ";
+	longitud_texto = longitud_texto + 21;
+	// Esta linea es para que en la consola se puedan visualizar los caracteres extendidos de ASCII
+	SetConsoleCP(437);
+
+	if (superior)
+	{
+		linea += char(201);
+	}
+	else
+	{
+		linea += char(200);
+	}
+
 	while (posicion <= longitud_texto)
 	{
-		linea = "*" + linea;
+		linea += char(205);
 		posicion = posicion + 1;
+	}
+
+	if (superior)
+	{
+		linea += char(187);
+	}
+	else
+	{
+		linea += char(188);
 	}
 	cout << linea << endl;
 }
 
-void CrearTitulo(string texto)
+void DibujarMarcoSubtitulo(float longitud_texto)
 {
-	int cantidadcaracteres;
-	cantidadcaracteres = texto.size();
-	dibujarasteriscos(cantidadcaracteres);
-	cout << "**** " + texto + " *****" << endl;
-	dibujarasteriscos(cantidadcaracteres);
+	string linea;
+	int posicion;
+	linea = " ";
+	longitud_texto = longitud_texto + 21;
+	// Esta linea es para que en la consola se puedan visualizar los caracteres extendidos de ASCII
+	SetConsoleCP(437);
+
+	linea += char(192);
+
+	while (posicion <= longitud_texto)
+	{
+		// linea += "*";
+		linea += char(196);
+
+		posicion = posicion + 1;
+	}
+
+	linea += char(217);
+
+	cout << linea << endl;
+}
+
+void CrearTitulo(string texto, string subtitulo)
+{
+	cout << "              " << endl;
+	DibujarMarcoSuperior(texto.size(), true);
+	cout << " " << char(186) << "           " + texto + "           " << char(186) << endl;
+	DibujarMarcoSuperior(texto.size(), false);
+	cout << " " << char(179) << "           " + subtitulo + "           " << char(179) << endl;
+	DibujarMarcoSubtitulo(texto.size());
 }
 
 void menuprincipal()
 {
 	borrarpantalla();
-	cout << "**********************************" << endl;
-	cout << "********** EL AHORCADO ***********" << endl;
-	cout << "*********************************" << endl;
-	cout << "Seleccione una opcion:" << endl;
-	cout << " [1] Instrucciones" << endl;
-	cout << " [2] Editar palabras" << endl;
-	cout << " [3] Jugar" << endl;
-	cout << " [4] Presentacion" << endl;
+	CrearTitulo("JUEGO EL AHORCADO", "Menú Principal");
+	// cout << "**********************************" << endl;
+	// cout << "********** EL AHORCADO ***********" << endl;
+	// cout << "*********************************" << endl;
+	cout << " Seleccione una opcion:" << endl;
+	cout << "  [1] Instrucciones" << endl;
+	cout << "  [2] Editar palabras" << endl;
+	cout << "  [3] Jugar" << endl;
+	cout << "  [4] Presentacion" << endl;
 	cout << " [0] Salir" << endl;
 }
 
