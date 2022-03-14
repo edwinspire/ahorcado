@@ -365,7 +365,7 @@ void menuprincipal()
 
 	cout << "  Seleccione una opcion:" << endl;
 	cout << "   [1] Instrucciones" << endl;
-	cout << "   [2] setear palabras" << endl;
+	cout << "   [2] Setear palabras" << endl;
 	cout << "   [3] Jugar" << endl;
 	cout << "   [4] Presentacion" << endl;
 	cout << "   [0] Salir" << endl;
