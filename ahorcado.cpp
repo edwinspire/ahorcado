@@ -111,7 +111,7 @@ void IniciarJuego(string palabra)
 
 	while (FinJuego == false)
 	{
-
+		SetConsoleTextAttribute(Consola, 15);
 		cout << "Ingrese una letra: ";
 		cin >> caracter;
 		cout << endl;
@@ -120,6 +120,7 @@ void IniciarJuego(string palabra)
 		{
 			if (palabra[i] == toupper(caracter))
 			{
+
 				palabra_jugar[i] = toupper(caracter);
 				letra_encontrada = true;
 			}
@@ -127,7 +128,12 @@ void IniciarJuego(string palabra)
 
 		if (letra_encontrada == false)
 		{
+			Beep(1500, 500);
 			Intentos--;
+		}
+		else
+		{
+			Beep(3000, 250);
 		}
 
 		if (palabra_jugar == palabra || Intentos <= 0)
@@ -140,24 +146,34 @@ void IniciarJuego(string palabra)
 
 	if (palabra_jugar == palabra)
 	{
-		cout << "GANADOR!!!!!!" << endl;
+		SetConsoleTextAttribute(Consola, 2);
+		cout << "  ¡¡¡¡¡¡¡  Ha ganado el juego !!!!!!" << endl
+			 << endl;
 	}
 	else
 	{
-		cout << "Perdedor !!!!!!" << endl;
+		SetConsoleTextAttribute(Consola, 12);
+		cout << "  Ha perdido el juego,"
+			 << " la palabra oculta era: " << palabra << endl
+			 << endl;
 	}
+	cout << '\a';
 }
 
 void MostrarAhorca(string palabra_jugar, int TotalIntentos, int IntentosRestantes)
 {
 	string Titulo = "JUEGO EL AHORCADO";
+
 	// string SubTitulo = "";
 	borrarpantalla();
-	CrearTitulo(Titulo, palabra_jugar);
-	cout << "	" << palabra_jugar << endl
-		 << endl
-		 << "Intentos " << IntentosRestantes << endl
+	CrearTitulo("JUEGO EL AHORCADO", "Palabra: " + palabra_jugar);
+	SetConsoleTextAttribute(Consola, 7);
+
+	cout << endl
+		 << "Intentos restantes: " << IntentosRestantes << endl
 		 << endl;
+
+	SetConsoleTextAttribute(Consola, 2);
 
 	cout << "   [-][-][-][-][-][-][-][-][-]" << endl;
 	cout << "   [-]                      |" << endl;
@@ -180,12 +196,35 @@ void MostrarAhorca(string palabra_jugar, int TotalIntentos, int IntentosRestante
 	cout << "[-][-][-]" << endl;
 
 	MoverHumano(TotalIntentos, IntentosRestantes);
+
+	SetConsoleTextAttribute(Consola, 7);
 }
 
 void MoverHumano(int TotalIntentos, int IntentosRestantes)
 {
+
+	switch (IntentosRestantes)
+	{
+
+	case 0:
+		SetConsoleTextAttribute(Consola, 8);
+		break;
+	case 1:
+		SetConsoleTextAttribute(Consola, 5);
+		break;
+	case 2:
+		SetConsoleTextAttribute(Consola, 14);
+		break;
+	case 3:
+		SetConsoleTextAttribute(Consola, 6);
+		break;
+	default:
+		SetConsoleTextAttribute(Consola, 2);
+		break;
+	}
+
 	int x = 26;
-	int y = 8 + IntentosRestantes;
+	int y = 10 + IntentosRestantes;
 	gotoxy(x, y + 1);
 	cout << "  O" << endl;
 	gotoxy(x, y + 2);
@@ -194,12 +233,11 @@ void MoverHumano(int TotalIntentos, int IntentosRestantes)
 	cout << "  |" << endl;
 	gotoxy(x, y + 4);
 	cout << "_/ \\_" << endl;
-	gotoxy(0, 26);
+	gotoxy(0, 29);
 }
 
 void Jugar()
 {
-	cout << "JUGAR" << endl;
 	string *pal = LeerArchivo();
 	vector<string> ListaPalabras;
 	string PalabraJugar = "";
@@ -223,7 +261,10 @@ void Jugar()
 	}
 	else
 	{
-		cout << "No hay palabras guardadas. Necesita guardarlas para iniciar el juego." << endl;
+		borrarpantalla();
+		CrearTitulo("JUEGO EL AHORCADO", "Jugar");
+		SetConsoleTextAttribute(Consola, 7);
+		cout << "No hay palabras guardadas. Necesita setearlas para iniciar el juego. Vuelva al menu principal." << endl;
 		presionarteclacontinuar;
 		SetearPalabras();
 	}
