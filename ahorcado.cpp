@@ -318,23 +318,44 @@ void CrearTitulo(string texto, string subtitulo)
 	DibujarMarcoSuperior(texto.size(), true);
 	cout << " " << char(186) << "           " + texto + "           " << char(186) << endl;
 	DibujarMarcoSuperior(texto.size(), false);
-	cout << " " << char(179) << "           " + subtitulo + "           " << char(179) << endl;
+
+	cout << " " << char(179);
+
+	// Igualamos la cantidad de caracteres del subtitulo a la cantidad de caracteres del titulo, para que se ajuste el marco del titulo con el subtitulo
+	if ((texto.size() + 21) > subtitulo.size())
+	{
+
+		cout << subtitulo;
+		int i = 0;
+		while (i < (texto.size() + 21 - subtitulo.size()))
+		{
+			cout << " ";
+			i++;
+		}
+
+		//		cout << subtitulo;
+	}
+	else
+	{
+		cout << subtitulo.substr(texto.size() + 21) << endl;
+	}
+	cout << " " << char(179) << endl;
 	DibujarMarcoSubtitulo(texto.size());
 }
 
 void menuprincipal()
 {
 	borrarpantalla();
-	CrearTitulo("JUEGO EL AHORCADO", "Menú Principal");
+	CrearTitulo("JUEGO EL AHORCADO", "Menu Principal");
 	// cout << "**********************************" << endl;
 	// cout << "********** EL AHORCADO ***********" << endl;
 	// cout << "*********************************" << endl;
-	cout << " Seleccione una opcion:" << endl;
-	cout << "  [1] Instrucciones" << endl;
-	cout << "  [2] Editar palabras" << endl;
-	cout << "  [3] Jugar" << endl;
-	cout << "  [4] Presentacion" << endl;
-	cout << " [0] Salir" << endl;
+	cout << "  Seleccione una opcion:" << endl;
+	cout << "   [1] Instrucciones" << endl;
+	cout << "   [2] Editar palabras" << endl;
+	cout << "   [3] Jugar" << endl;
+	cout << "   [4] Presentacion" << endl;
+	cout << "   [0] Salir" << endl;
 }
 
 int main()
