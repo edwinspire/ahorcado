@@ -1,5 +1,5 @@
-# ahorcado
-El ahorcado (también llamado colgado) escrito en C++
+# Juego El Ahorcado
+El ahorcado (también llamado colgado) escrito en C++ para Windows, almacenado de palabras en archivo de texto editable desde la aplicación.
 
 Pantalla Principal
 
