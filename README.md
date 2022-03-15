@@ -1,6 +1,12 @@
 # Juego El Ahorcado
 El ahorcado (también llamado colgado) escrito en C++ para Windows, almacenado de palabras en archivo de texto editable desde la aplicación.
 
+Pantalla de Portada
+
+![image](https://user-images.githubusercontent.com/3129446/158285209-8db03fdf-bfb9-4d9e-9a5d-ffe3ab650165.png)
+
+
+
 Pantalla Principal
 
 ![image](https://user-images.githubusercontent.com/3129446/158284084-29e5d8e6-31ea-4362-ac60-94ed389aac02.png)
